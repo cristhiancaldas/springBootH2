@@ -1,7 +1,7 @@
 
 # Microservicio User
 
-Microservicio User utilizando JPA, H2 , LOMBOk
+Microservicio usano utilizando JPA, H2 , LOMBOk
 
 
 ## Authors

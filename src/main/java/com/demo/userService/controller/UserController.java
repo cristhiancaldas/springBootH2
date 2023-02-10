@@ -3,6 +3,7 @@ package com.demo.userService.controller;
 import com.demo.userService.entity.UserDemo;
 import com.demo.userService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,9 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDemo> save(@RequestBody UserDemo user) {
+    @ResponseStatus(HttpStatus.OK)
+    public UserDemo save(@RequestBody UserDemo user) {
         UserDemo userNew = userService.save(user);
-        return ResponseEntity.ok(userNew);
+        return userNew;
     }
 }
