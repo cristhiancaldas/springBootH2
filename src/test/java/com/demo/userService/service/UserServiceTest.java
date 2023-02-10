@@ -45,8 +45,8 @@ class UserServiceTest {
 
     @Test
     void getUserById() {
-        when(userRepository.findById(eq(14L))).thenReturn(Optional.ofNullable(userDemo));
-        assertNotNull(userService.getUserById(14L));
+        when(userRepository.findById(eq(15L))).thenReturn(Optional.ofNullable(userDemo));
+        assertNotNull(userService.getUserById(15L));
     }
 
     @Test
