@@ -18,8 +18,8 @@ public class UserController {
     UserService userService;
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public UserDemo addUser(@RequestBody UserDemo user) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDemo addUser(@RequestBody UserDemo user){
         return userService.save(user);
     }
 
@@ -28,7 +28,7 @@ public class UserController {
         List<UserDemo> users = userService.getAll();
         if(users.isEmpty())
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(users);
+        return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
