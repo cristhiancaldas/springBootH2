@@ -35,7 +35,6 @@ public class UserController {
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     public UserDemo save(@RequestBody UserDemo user) {
-        UserDemo userNew = userService.save(user);
-        return userNew;
+        return userService.save(user);
     }
 }
