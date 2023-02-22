@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest {
 
+    private final String URL="/user/v1";
     private MockMvc mockMvc;
     @InjectMocks
     private UserController userController;
@@ -40,53 +41,50 @@ class UserControllerTest {
     }
 
     @Test
+    void addUser() throws Exception {
+        when(userService.save(userDemoMock())).thenReturn(userDemoMock());
+        mockMvc.perform( MockMvcRequestBuilders
+                        .post(URL)
+                        .content(asJsonString(userDemoMock()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
     void getAllUser() throws Exception {
         when(userService.getAll()).thenReturn(usersDemo());
-        ResultActions response = this.mockMvc.perform(get("/user/v1"));
-        response.andExpect(status().isOk())
-                .andDo(print());
+        ResultActions response = this.mockMvc.perform(get(URL));
+        response.andExpect(status().isOk());
     }
 
     @Test
     void getUserById() throws Exception {
         long userId = 15L;
         when(userService.getUserById(userId)).thenReturn(Optional.of(userDemoMock()));
-        ResultActions response = mockMvc.perform(get("/user/v1/{id}", userId));
-        response.andExpect(status().isOk()).andDo(print());
+        ResultActions response = mockMvc.perform(get(URL.concat("/{id}"), userId));
+        response.andExpect(status().isOk());
     }
 
     @Test
     void deleteUser() throws Exception {
         long userId= 15L;
         doNothing().when(userService).deleteUser(userId);
-        ResultActions response = mockMvc.perform(delete("/user/v1/{id}", userId));
-        response.andExpect(status().isOk()).andDo(print());
+        ResultActions response = mockMvc.perform(delete(URL.concat("/{id}"), userId));
+        response.andExpect(status().isOk());
     }
 
     @Test
-    void addUser() throws Exception {
-
+    void updateUser() throws Exception {
+        long userID=15;
+        when(userService.getUserById(userID)).thenReturn(Optional.of(userDemoMock()));
         when(userService.save(userDemoMock())).thenReturn(userDemoMock());
-
         mockMvc.perform( MockMvcRequestBuilders
-                        .post("/user/v1")
+                        .put(URL.concat("/{userID}"),userID)
                         .content(asJsonString(userDemoMock()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
-              //  .andExpect(MockMvcResultMatchers.jsonPath("$.employeeId").exists());
-    }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Test
-    void updateUser() {
+                .andExpect(status().isOk());
     }
 
     private UserDemo userDemoMock(){
@@ -115,5 +113,13 @@ class UserControllerTest {
         usersDemo.add(userDemo01);
         usersDemo.add(userDemo02);
         return usersDemo;
+    }
+    private static String asJsonString(final Object obj) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

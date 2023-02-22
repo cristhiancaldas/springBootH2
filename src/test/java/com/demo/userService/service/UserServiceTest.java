@@ -57,7 +57,6 @@ class UserServiceTest {
 
     @Test
     void delete(){
-        //when(userRepository.deleteById(eq(15L)).thenReturn("");
         doNothing().when(userRepository).deleteById(eq(15L));
         userService.deleteUser(eq(15L));
         verify(userRepository, times(1)).deleteById(anyLong());
