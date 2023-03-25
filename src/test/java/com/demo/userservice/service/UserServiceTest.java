@@ -1,7 +1,7 @@
-package com.demo.userService.service;
+package com.demo.userservice.service;
 
-import com.demo.userService.entity.UserDemo;
-import com.demo.userService.repository.UserRepository;
+import com.demo.userservice.entity.UserDemo;
+import com.demo.userservice.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

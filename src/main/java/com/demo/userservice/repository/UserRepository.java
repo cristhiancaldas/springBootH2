@@ -1,6 +1,6 @@
-package com.demo.userService.repository;
+package com.demo.userservice.repository;
 
-import com.demo.userService.entity.UserDemo;
+import com.demo.userservice.entity.UserDemo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
