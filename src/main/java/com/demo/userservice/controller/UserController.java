@@ -16,6 +16,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+
+    @GetMapping("/version")
+    public String getVersion(){
+        return "This is version 1.0.1";
+    }
+
     @GetMapping
     public ResponseEntity<List<UserDemo>> getAll() {
         List<UserDemo> users = userService.getAll();
