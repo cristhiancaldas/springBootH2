@@ -49,11 +49,26 @@ class UserControllerTest {
     }
 
     @Test
+    void getAllEmpty() throws Exception {
+        when(userService.getAll()).thenReturn(new ArrayList<>());
+        ResultActions response = this.mockMvc.perform(get("/user/v1"));
+        response.andExpect(status().isNoContent());
+    }
+
+    @Test
     void getById() throws Exception {
         Long idTask=15L;
         when(userService.getUserById(idTask)).thenReturn(userMock());
         ResultActions response = mockMvc.perform(get("/user/v1/{id}", idTask));
         response.andExpect(status().isOk());
+    }
+
+    @Test
+    void getByIdEmpty() throws Exception {
+        Long idTask=15L;
+        when(userService.getUserById(idTask)).thenReturn(null);
+        ResultActions response = mockMvc.perform(get("/user/v1/{id}", idTask));
+        response.andExpect(status().isNotFound());
     }
 
     @Test

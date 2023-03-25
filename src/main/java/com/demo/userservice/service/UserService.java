@@ -21,7 +21,6 @@ public class UserService {
     }
 
     public UserDemo save(UserDemo user) {
-        UserDemo userNew = userRepository.save(user);
-        return userNew;
+        return userRepository.save(user);
     }
 }

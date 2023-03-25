@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 class UserServiceTest {
@@ -47,7 +46,7 @@ class UserServiceTest {
     @Test
     void getUserById() {
         Long idUser= 154L;
-        when(userRepository.findById(eq(15L))).thenReturn(Optional.ofNullable(userDemo));
+        when(userRepository.findById(15L)).thenReturn(Optional.ofNullable(userDemo));
         userService.getUserById(idUser);
         assertNotNull(userService.getUserById(15L));
     }
