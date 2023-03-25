@@ -39,19 +39,26 @@ class UserServiceTest {
     @Test
     void getAll() {
         when(userRepository.findAll()).thenReturn(Arrays.asList(userDemo));
+        userService.getAll();
         assertEquals(1,Arrays.asList(userDemo).size());
         assertNotNull(userService.getAll());
     }
 
     @Test
     void getUserById() {
+        Long idUser= 154L;
         when(userRepository.findById(eq(15L))).thenReturn(Optional.ofNullable(userDemo));
+        userService.getUserById(idUser);
         assertNotNull(userService.getUserById(15L));
     }
 
     @Test
     void save() {
         when(userRepository.save(any(UserDemo.class))).thenReturn(userDemo);
+        userService.save(any(UserDemo.class));
         assertEquals(userDemo.getName(),userService.save(userDemo).getName());
+        assertEquals(userDemo.getAge(),userService.save(userDemo).getAge());
+        assertEquals(userDemo.getLastName(),userService.save(userDemo).getLastName());
+        assertNotNull(userService.save(userDemo).getId());
     }
 }

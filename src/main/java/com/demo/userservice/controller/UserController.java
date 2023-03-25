@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/user/v1")
@@ -20,7 +21,7 @@ public class UserController {
 
     @GetMapping("/version")
     public String getVersion(){
-        return "This is version 1.0.1";
+        return "This is version 1.0.2";
     }
 
     @GetMapping
@@ -34,13 +35,13 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDemo> getById(@PathVariable("id") Long id) {
         UserDemo user = userService.getUserById(id);
-        if(user == null)
+        if(Objects.isNull(user))
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(user);
     }
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public UserDemo save(@RequestBody UserDemo user) {
         return userService.save(user);
     }
