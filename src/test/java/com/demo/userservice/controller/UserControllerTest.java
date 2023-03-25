@@ -16,9 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,6 +38,7 @@ class UserControllerTest {
     @Test
     void getVersion() throws Exception {
         ResultActions response = this.mockMvc.perform(get("/user/v1/version"));
+        response.andExpect(status().isOk());
     }
 
     @Test
